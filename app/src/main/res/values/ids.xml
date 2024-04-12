@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="emailEditText" type="id" />
+    <item name="passwordEditText" type="id" />
+    <item name="loginButton" type="id" />
+    <item name="forgotPasswordTextView" type="id" />
+    <item name="signupTextView" type="id" />
+    <item name="dividerTextView" type="id" />
+    <item name="facebookLoginButton" type="id" />
+    <item name="googleLoginButton" type="id" />
+    <item name="privacyPolicyTextView" type="id" />
+    <item name="termsOfServiceTextView" type="id" />
+</resources>

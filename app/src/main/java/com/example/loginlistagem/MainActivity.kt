@@ -1,12 +1,14 @@
 package com.example.loginlistagem
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.SearchView // Adicionado para a funcionalidade de pesquisa
+import android.widget.TextView
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -25,6 +27,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        // Exibindo o nome do usuário assim que entra na aplicação
+        val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
+        val nomeUsuario = sharedPreferences.getString("nome_usuario", "Nome padrão")
+        Log.d("MainActivity", "Nome do usuário: $nomeUsuario")
+        val nomeUsuarioTextView = findViewById<TextView>(R.id.nomeUsuarioTextView)
+        nomeUsuarioTextView.text = "Bem-vindo, $nomeUsuario!" // Aqui você pode customizar a mensagem de boas-vindas
+
 
         recyclerView = findViewById(R.id.recyclerViewProdutos)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -82,7 +93,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+
     }
+
 
     private fun filter(text: String) {
         filteredProdutos.clear()

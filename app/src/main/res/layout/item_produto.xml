@@ -7,6 +7,8 @@
     android:layout_marginTop="10dp"
     android:background="@drawable/borda_layout">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,16 +62,17 @@
 
 
         <Button
-            android:id="@+id/btn_comprar"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_Comprar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#ffffff"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#1C0445"
             android:text="Comprar"
-            android:textColor="#FF0000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/valorProduto" />
+            android:textColor="#ffffff"
+            app:layout_constraintEnd_toEndOf="@+id/valorProduto"
+            app:layout_constraintStart_toStartOf="@+id/valorProduto"
+            app:layout_constraintTop_toBottomOf="@+id/valorProduto" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

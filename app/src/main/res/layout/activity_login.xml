@@ -8,8 +8,8 @@
     android:gravity="center">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="151dp"
         android:layout_marginBottom="32dp"
         android:src="@drawable/logo1" />
 
@@ -38,10 +38,10 @@
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log-in"
         android:layout_marginTop="16dp"
-        android:textSize="18sp"
-        android:backgroundTint="#FF0000" />
+        android:backgroundTint="#1C0445"
+        android:text="Log-in"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/forgotPasswordTextView"
@@ -88,7 +88,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#EF1705"
+        android:backgroundTint="#ffffff"
+        android:textColor="#FF0000"
         android:drawableLeft="@drawable/google"
         android:drawablePadding="8dp"
         android:text="Entrar com Google"

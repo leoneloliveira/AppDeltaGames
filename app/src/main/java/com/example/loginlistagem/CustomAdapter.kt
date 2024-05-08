@@ -49,6 +49,7 @@ class CustomAdapter(private val dataSet: MutableList<Produto>) :
             intent.putExtra("NOME_PRODUTO", produto.produtoNome)
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
             intent.putExtra("ID_PRODUTO", produto.produtoId)
+            intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
             viewHolder.itemView.context.startActivity(intent)
         }
     }

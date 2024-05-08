@@ -18,6 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomAdapter
@@ -29,12 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        // Exibindo o nome do usuário assim que entra na aplicação
-        val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
-        val nomeUsuario = sharedPreferences.getString("nome_usuario", "Nome padrão")
-        Log.d("MainActivity", "Nome do usuário: $nomeUsuario")
-        val nomeUsuarioTextView = findViewById<TextView>(R.id.nomeUsuarioTextView)
-        nomeUsuarioTextView.text = "Bem-vindo, $nomeUsuario!" // Aqui você pode customizar a mensagem de boas-vindas
+
 
 
         recyclerView = findViewById(R.id.recyclerViewProdutos)

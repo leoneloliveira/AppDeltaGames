@@ -1,6 +1,7 @@
 package com.example.loginlistagem
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,10 +13,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 import android.util.Log
-import retrofit2.http.GET
-import retrofit2.http.Query
+
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -55,6 +56,15 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
                     if (loginResponses.isNotEmpty()) {
+                        // Obter o ID do usuário da resposta do servidor (se estiver incluído)
+                        val userId = loginResponses[0].usuarioId
+
+                        // Salvar o ID do usuário no SharedPreferences
+                        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putInt("userId", userId)
+                        editor.apply()
+
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -84,11 +94,5 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    interface ApiService {
-        @GET("login")
-        fun login(
-            @Query("usuario") usuario: String,
-            @Query("senha") senha: String
-        ): Call<List<LoginResponse>>
-    }
+
 }

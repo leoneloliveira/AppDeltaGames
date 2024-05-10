@@ -13,14 +13,6 @@ interface ApiService {
     fun getProdutos(): Call<List<Produto>>
 
 
-        @FormUrlEncoded
-        @POST("/")
-        fun adicionarAoCarrinho(
-            @Field("userId") userId: Int,
-            @Field("produtoId") produtoId: Int,
-            @Field("quantidade") quantidade: Int
-        ): Call<String>
-
 
     @GET("login")
     fun login(

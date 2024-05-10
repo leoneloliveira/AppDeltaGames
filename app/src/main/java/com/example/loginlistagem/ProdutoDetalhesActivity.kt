@@ -11,8 +11,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
-
-
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 class ProdutoDetalhesActivity : AppCompatActivity() {
 
@@ -24,8 +25,6 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "DescriÃ§Ã£o nÃ£o disponÃ­vel"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
-
-
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
@@ -41,12 +40,6 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
         }
-        val btnVoltar: Button = findViewById(R.id.btnVoltar)
-
-        btnVoltar.setOnClickListener {
-            // Chama finish() para fechar a atividade atual e voltar para a anterior
-            finish()
-        }
     }
 
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
@@ -55,7 +48,7 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
-        val api = retrofit.create(ApiService::class.java)
+        val api = retrofit.create(cartApi::class.java)
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
@@ -71,9 +64,15 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         })
     }
 
-
-
-
+    interface ApiService {
+        @FormUrlEncoded
+        @POST("/")
+        fun adicionarAoCarrinho(
+            @Field("userId") userId: Int,
+            @Field("produtoId") produtoId: Int,
+            @Field("quantidade") quantidade: Int
+        ): Call<String>
+    }
 }
 
 

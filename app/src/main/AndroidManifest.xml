@@ -13,21 +13,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginListagem"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
         <activity
             android:name=".ProdutoDetalhesActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".CartActivity"
+            android:exported="true" /> <!-- Add this line for CartActivity -->
+
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"> <!-- I've changed exported to true for LoginActivity -->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

@@ -1,3 +1,4 @@
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -60,7 +61,7 @@
         android:id="@+id/txtQuantidadeDisponivelLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantidade disponivel:"
+        android:text="Quantidade disponÃ­vel:"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
@@ -69,7 +70,6 @@
         android:id="@+id/txtQuantidadeDisponivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="0"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
@@ -80,7 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#D53503"
+        android:background="#2C7D8C"
         android:text="Adicionar ao Carrinho"
         android:textAllCaps="false"
         android:textColor="#FFF"
@@ -88,25 +88,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivel" />
 
-
-    <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#1C0445"
-        android:text="Voltar"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdicionarAoCarrinho" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-

@@ -46,9 +46,10 @@ class CustomAdapter(private val dataSet: MutableList<Produto>) :
 
         viewHolder.btnComprar.setOnClickListener {
             val intent = Intent(viewHolder.itemView.context, ProdutoDetalhesActivity::class.java)
+            intent.putExtra("ID_PRODUTO", produto.produtoId)
+            intent.putExtra("IMAGEM_URL",produto.imagemUrl)
             intent.putExtra("NOME_PRODUTO", produto.produtoNome)
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
-            intent.putExtra("ID_PRODUTO", produto.produtoId)
             intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
             viewHolder.itemView.context.startActivity(intent)
         }

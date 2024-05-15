@@ -1,11 +1,24 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProdutoDetalhes"
     android:id="@+id/layoutPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/imagem_produto"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto" />
 
     <TextView
         android:id="@+id/txtNomeProduto"
@@ -21,57 +34,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/txtDescricaoProduto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Descricao"
-        android:textColor="#666"
+        android:textColor="#1C0445"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Quantidade desejada:"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintEnd_toStartOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editQuantidadeDesejada" />
-
-    <EditText
-        android:id="@+id/editQuantidadeDesejada"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="0"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeDisponivelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantidade disponÃ­vel:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
+        app:layout_constraintTop_toBottomOf="@+id/imagem_produto" />
 
     <TextView
         android:id="@+id/txtQuantidadeDisponivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:text="0"
         android:textSize="16sp"
+        android:textColor="#1C0445"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
         app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel" />
 
@@ -80,12 +65,63 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#2C7D8C"
+
+        android:backgroundTint="#1C0445"
         android:text="Adicionar ao Carrinho"
         android:textAllCaps="false"
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivel" />
+
+    <TextView
+        android:id="@+id/txtQuantidadeDisponivelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Quantidade disponivel:"
+        android:textSize="16sp"
+        android:textColor="#1C0445"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
+
+    <EditText
+        android:id="@+id/editQuantidadeDesejada"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="#1C0445"
+        android:hint="0"
+        android:inputType="number"
+        android:minHeight="48dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
+
+    <TextView
+        android:id="@+id/txtQuantidadeLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Quantidade desejada:"
+        android:textSize="16sp"
+        android:textColor="#1C0445"
+        app:layout_constraintBottom_toBottomOf="@+id/editQuantidadeDesejada"
+        app:layout_constraintEnd_toStartOf="@+id/editQuantidadeDesejada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editQuantidadeDesejada"
+        app:layout_constraintVertical_bias="0.461" />
+    <Button
+        android:id="@+id/btnCarrinho"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#1C0445"
+        android:text="Carrinho"
+        app:layout_constraintTop_toBottomOf="@id/btnAdicionarAoCarrinho"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

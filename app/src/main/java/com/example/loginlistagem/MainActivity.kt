@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+
         recyclerView = findViewById(R.id.recyclerViewProdutos)
         recyclerView.layoutManager = LinearLayoutManager(this)
 

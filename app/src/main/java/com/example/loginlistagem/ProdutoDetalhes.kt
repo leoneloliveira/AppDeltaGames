@@ -1,7 +1,6 @@
 package com.example.loginlistagem
 
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 

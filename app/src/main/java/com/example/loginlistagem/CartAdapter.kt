@@ -1,4 +1,5 @@
 package com.example.loginlistagem
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CartAdapter(
     private val items: MutableList<Produto>,
     private val context: Context,
-    private val userId: Int,
     private val updateTotal: () -> Unit
 ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
@@ -38,26 +38,31 @@ class CartAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.productName.text = item.produtoNome
-        // CorreÃ§Ã£o: Assegurando que o preÃ§o Ã© tratado como um nÃºmero para formataÃ§Ã£o
-        holder.productPrice.text = String.format("R$%.2f", item.produtoPreco.toDouble())
+        // CorreÃƒÂ§ÃƒÂ£o: Assegurando que o preÃƒÂ§o ÃƒÂ© tratado como um nÃƒÂºmero para formataÃƒÂ§ÃƒÂ£o
+        holder.productPrice.text = item.produtoPreco?.let { String.format("R$%.2f", it.toDouble()) }
+
         holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
         Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
         holder.deleteButton.setOnClickListener {
-            removeItemFromCart(item, position, userId)
+            removeItemFromCart(item, position)
         }
     }
 
-    private fun removeItemFromCart(item: Produto, position: Int, userId: Int) {
+    private fun removeItemFromCart(item: Produto, position: Int) {
         val retrofit = getRetrofit()
         val api = retrofit.create(CartApiService::class.java)
-        api.deleteCartItem(item.produtoId, userId = userId).enqueue(object : Callback<Void> {
+
+        val sharedPreferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+
+        api.deleteCartItem(item.produtoId, userId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     items.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, items.size)
-                    updateTotal()  // Chamada da funÃ§Ã£o para atualizar o total
+                    updateTotal()  // Chamada da funÃƒÂ§ÃƒÂ£o para atualizar o total
                     Toast.makeText(context, "Item deletado com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Falha ao deletar o item", Toast.LENGTH_SHORT).show()
@@ -77,3 +82,5 @@ class CartAdapter(
 
     override fun getItemCount() = items.size
 }
+
+

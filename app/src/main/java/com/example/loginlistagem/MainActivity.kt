@@ -2,13 +2,17 @@ package com.example.loginlistagem
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.SearchView // Adicionado para a funcionalidade de pesquisa
 import android.widget.TextView
+
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -88,6 +92,31 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+          //adicionador novas regras
+
+        val btnCarrinho = findViewById<ImageView>(R.id.btnCarrinho)
+        var intent2 = Intent(this@MainActivity, CartActivity::class.java)
+        intent2.putExtra("userId", userId)
+        btnCarrinho.setOnClickListener {
+            startActivity(intent2)
+        }
+
+        val btnSair: Button = findViewById(R.id.btnSair)
+        btnSair.setOnClickListener {
+            // Cria uma intent para iniciar a atividade de login
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            // Adiciona flags para limpar a pilha de atividades
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+
+        val cadastrarTextView: TextView = findViewById(R.id.Cadastrar)
+        cadastrarTextView.setOnClickListener {
+            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

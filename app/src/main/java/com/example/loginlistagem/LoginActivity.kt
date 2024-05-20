@@ -1,7 +1,6 @@
 package com.example.loginlistagem
 
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,8 +17,7 @@ import android.util.Log
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
-class LoginActivity<SharedPreferences> : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -28,23 +26,23 @@ class LoginActivity<SharedPreferences> : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         val loginButton: Button = findViewById(R.id.loginButton)
 
-        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
-
-        loginButton.setOnClickListener{
-            blockLogin(sharedPreferences)
+        loginButton.setOnClickListener {
+            blockLogin()
         }
     }
 
-    private fun blockLogin(sharedPreferences: android.content.SharedPreferences) {
+    private fun blockLogin() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://298e89b0-8404-4ed8-854a-b22f6daeba1d-00-1lblx47u5zguf.picard.replit.dev/")
+            .baseUrl(" https://298e89b0-8404-4ed8-854a-b22f6daeba1d-00-1lblx47u5zguf.picard.replit.dev/ ")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -58,15 +56,15 @@ class LoginActivity<SharedPreferences> : AppCompatActivity(){
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
-
                     if (loginResponses.isNotEmpty()) {
-                        // Obter o ID do usuário da resposta do servidor (se estiver incluído)
-                        val userId = loginResponses[0].USUARIO_ID
 
-                        // Salvar o ID do usuário no SharedPreferences
-                        val editor = sharedPreferences.edit()
-                        editor.putInt("userId", userId)
-                        editor.apply()
+                        val idUser=loginResponses.get(0).USUARIO_ID
+
+                        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().apply {
+                            putInt("userId", idUser.toInt())
+                            apply()
+                        }
 
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
@@ -74,7 +72,7 @@ class LoginActivity<SharedPreferences> : AppCompatActivity(){
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
-                            "UsuÃ¡rio ou senha invÃ¡lidos",
+                            "UsuÃƒÂ¡rio ou senha invÃƒÂ¡lidos",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -96,6 +94,7 @@ class LoginActivity<SharedPreferences> : AppCompatActivity(){
 
     }
 
+
     interface ApiService {
         @GET("login")
         fun login(
@@ -103,7 +102,4 @@ class LoginActivity<SharedPreferences> : AppCompatActivity(){
             @Query("senha") senha: String
         ): Call<List<LoginResponse>>
     }
-
-
-
 }

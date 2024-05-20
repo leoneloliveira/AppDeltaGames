@@ -1,5 +1,6 @@
 package com.example.loginlistagem
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +20,6 @@ class CartActivity : AppCompatActivity() {
     private lateinit var totalTextView: TextView
     private lateinit var goToPaymentButton: Button
     private var total: Double = 0.0
-    private var userId: Int = 0
     private lateinit var cartAdapter: CartAdapter
     private var items: MutableList<Produto> = mutableListOf()
 
@@ -27,25 +27,25 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+
         recyclerView = findViewById(R.id.cartRecyclerView)
         totalTextView = findViewById(R.id.totalTextView)
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
-        // Obtenha userId das preferências compartilhadas do login aqui
-        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
-        userId = sharedPreferences.getInt("userId", 0)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         fetchCartItems()
 
+
         goToPaymentButton.setOnClickListener {
-            // Ir para tela de pagamento enviando os dados
             val intent = Intent(this, PaymentActivity::class.java).apply {
-                putExtra("TOTAL", totalTextView.text.toString())
-                putExtra("USER", userId)  // O ID do usuÃ¡rio deve ser obtido de maneira segura, por exemplo, atravÃ©s de uma sessÃ£o de login com o Shared Preferences
+                var value=updateTotal()
+                putExtra("TOTAL", total.toString())
+                putExtra("USER", userId)
                 putParcelableArrayListExtra("PRODUCT_LIST", ArrayList(items))
             }
             startActivity(intent)
-
         }
     }
 
@@ -56,12 +56,16 @@ class CartActivity : AppCompatActivity() {
             .build()
 
         val api = retrofit.create(CartApiService::class.java)
-        api.getCartItems(userId =  userId).enqueue(object : Callback<List<Produto>> {
+
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+
+        api.getCartItems(userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     items = response.body()?.toMutableList() ?: mutableListOf()
                     setupAdapter()
-                    updateTotal()  // Atualiza o total apÃ³s carregar os itens
+                    updateTotal()
                 }
             }
 
@@ -72,12 +76,12 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun setupAdapter() {
-        cartAdapter = CartAdapter(items, this@CartActivity,userId) { updateTotal() }
+        cartAdapter = CartAdapter(items, this) { updateTotal() }
         recyclerView.adapter = cartAdapter
     }
 
     fun updateTotal() {
-        total = items.sumOf { it.produtoPreco.toDouble() * it.quantidadeDisponivel.toDouble() }
+        total = items.sumOf { (it.produtoPreco?.toDouble() ?: 0.0) * it.quantidadeDisponivel.toDouble() }
         runOnUiThread {
             totalTextView.text = "Total: R$${String.format("%.2f", total)}"
         }

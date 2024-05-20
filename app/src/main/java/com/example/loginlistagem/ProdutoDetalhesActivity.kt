@@ -25,8 +25,8 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_produto_detalhes)
 
-        val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome nÃ£o disponÃ­vel"
-        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "DescriÃ§Ã£o nÃ£o disponÃ­vel"
+        val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome nÃƒÂ£o disponÃƒÂ­vel"
+        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "DescriÃƒÂ§ÃƒÂ£o nÃƒÂ£o disponÃƒÂ­vel"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
         val imagemProguto = intent.getStringExtra("IMAGEM_URL") ?: "imagem indisponivel"
@@ -44,19 +44,15 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
         val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
 
+
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
+
+
 
         btnAdicionarCarrinho.setOnClickListener {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
-        }
-        // Botão Carrinho
-        val btnCarrinho = findViewById<Button>(R.id.btnCarrinho)
-        btnCarrinho.setOnClickListener {
-            val intent = Intent(this, CartActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 
@@ -71,8 +67,12 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@ProdutoDetalhesActivity, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
+                    // Redireciona para a página do carrinho
+                    val intent = Intent(this@ProdutoDetalhesActivity, CartActivity::class.java)
+                    startActivity(intent)
+
                 } else {
-                    Toast.makeText(this@ProdutoDetalhesActivity, "Resposta nÃ£o bem-sucedida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProdutoDetalhesActivity, "Resposta nÃƒÂ£o bem-sucedida", Toast.LENGTH_SHORT).show()
                 }
             }
 

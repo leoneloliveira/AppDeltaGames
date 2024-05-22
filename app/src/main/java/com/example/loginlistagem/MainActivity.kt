@@ -112,11 +112,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        val cadastrarTextView: TextView = findViewById(R.id.Cadastrar)
-        cadastrarTextView.setOnClickListener {
-            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
-            startActivity(intent)
-        }
+
 
 
     }

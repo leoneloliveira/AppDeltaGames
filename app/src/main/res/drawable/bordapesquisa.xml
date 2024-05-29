@@ -9,7 +9,7 @@
         </shape>
     </item>
     <!-- Fundo branco -->
-    <item android:top="1dp" android:right="1dp" android:left="1dp" android:bottom="1dp">
+    <item android:top="5dp" android:right="4dp" android:left="4dp" android:bottom="5dp">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF"/> <!-- Cor de fundo branca -->
             <corners android:radius="32.5dp"/>

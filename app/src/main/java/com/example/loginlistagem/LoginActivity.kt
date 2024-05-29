@@ -1,11 +1,11 @@
 package com.example.loginlistagem
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
@@ -21,19 +21,24 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var tvCadastrar: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
-
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
+        tvCadastrar = findViewById(R.id.tvCadastrar)
         val loginButton: Button = findViewById(R.id.loginButton)
 
         loginButton.setOnClickListener {
             blockLogin()
+        }
+
+        tvCadastrar.setOnClickListener {
+            val intent = Intent(this, CadastroUsuarioActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -42,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(" https://298e89b0-8404-4ed8-854a-b22f6daeba1d-00-1lblx47u5zguf.picard.replit.dev/ ")
+            .baseUrl("https://298e89b0-8404-4ed8-854a-b22f6daeba1d-00-1lblx47u5zguf.picard.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -57,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
                     if (loginResponses.isNotEmpty()) {
-
-                        val idUser=loginResponses.get(0).USUARIO_ID
+                        val idUser = loginResponses[0].USUARIO_ID
 
                         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
                         sharedPreferences.edit().apply {
@@ -72,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
-                            "UsuÃƒÂ¡rio ou senha invÃƒÂ¡lidos",
+                            "Usuário ou senha inválidos",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -90,10 +94,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-
-
     }
-
 
     interface ApiService {
         @GET("login")

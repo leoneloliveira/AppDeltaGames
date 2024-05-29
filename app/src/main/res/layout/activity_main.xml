@@ -1,64 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bordadefundo"
-    android:padding="8dp"
-    android:layout_margin="4dp"
+    android:background="@drawable/fundo"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
-<LinearLayout
-android:id="@+id/searchLayout"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-app:layout_constraintTop_toTopOf="parent"
-android:layout_marginTop="4dp"
-android:padding="8dp">
+    <!-- Imagem de fundo que cobre toda a tela -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fundo"
+         />
 
-<SearchView
-    android:id="@+id/searchView"
-    android:layout_width="0dp"
-    android:layout_height="52dp"
-    android:layout_weight="1"
-    android:queryHint="Pesquisar"
-    android:background="@drawable/bordapesquisa"
-    />
+    <!-- Conteúdo da página com borda -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@drawable/bordadefundo">
 
-<ImageView
-    android:id="@+id/btnCarrinho"
-    android:layout_width="70dp"
-    android:layout_height="36dp"
-    android:clickable="true"
-    android:contentDescription="Carrinho"
-    android:focusable="true"
-    android:src="@drawable/carrinhodecompras"/>
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="4dp"
+            android:padding="8dp">
 
-</LinearLayout>
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:queryHint="Pesquisar"
+                android:background="@drawable/bordapesquisa" />
 
-<Button
-android:id="@+id/btnSair"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginTop="4dp"
-android:text="Sair "
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintHorizontal_bias="0.0"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+            <ImageView
+                android:id="@+id/btnCarrinho"
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:clickable="true"
+                android:contentDescription="Carrinho"
+                android:focusable="true"
+                android:src="@drawable/carrinhodecompras" />
 
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/recyclerViewProdutos"
-android:layout_width="0dp"
-android:layout_height="0dp"
-android:padding="8dp"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintTop_toBottomOf="@id/btnSair"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-tools:layout_editor_absoluteX="0dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#FFFCE3FF"
+            android:textColor="#FF976DD0"
+            android:text="Sair"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewProdutos"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSair"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

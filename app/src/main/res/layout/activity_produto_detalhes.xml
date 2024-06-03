@@ -1,104 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@drawable/fundo"
+    >
 
-    <ImageView
-        android:id="@+id/imagem_produto"
-        android:layout_width="315dp"
-        android:layout_height="205dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="Imagem do Produto"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/txtNomeProduto"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /> <!-- Ajusta a proporção para manter a imagem quadrada -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bordadefundo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-    <TextView
-        android:id="@+id/txtNomeProduto"
+        <ImageView
+            android:id="@+id/imageViewBackground"
+            android:layout_width="387dp"
+            android:layout_height="566dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/detrales"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-3dp"
+            tools:layout_editor_absoluteY="15dp" />
+
+        <!-- Imagem do produto -->
+        <ImageView
+            android:id="@+id/imagem_produto"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagem do Produto"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackground"/>
+
+        <!-- Outros elementos de layout aqui -->
+
+        <TextView
+            android:id="@+id/txtNomeProduto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Produto Nome"
+            android:textColor="#333"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagem_produto" />
+
+        <TextView
+            android:id="@+id/txtDescricaoProduto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Descricao"
+            android:textColor="#666"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto" />
+
+        <TextView
+            android:id="@+id/txtQuantidadeLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Quantidade desejada:"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editQuantidadeDesejada"
+            app:layout_constraintEnd_toStartOf="@+id/editQuantidadeDesejada"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editQuantidadeDesejada" />
+
+        <EditText
+            android:id="@+id/editQuantidadeDesejada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="0"
+            android:inputType="number"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
+
+        <TextView
+            android:id="@+id/txtQuantidadeDisponivelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantidade disponível:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
+
+        <TextView
+            android:id="@+id/txtQuantidadeDisponivel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
+            app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel" />
+
+
+        <ImageView
+            android:id="@+id/btnAdicionarAoCarrinho"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/circle_background"
+            android:padding="8dp"
+            android:src="@drawable/sinaldemais"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Produto Nome"
-        android:textColor="#333"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagem_produto" />
-
-    <TextView
-        android:id="@+id/txtDescricaoProduto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Descricao"
-        android:textColor="#666"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Quantidade desejada:"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintEnd_toStartOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editQuantidadeDesejada" />
-
-    <EditText
-        android:id="@+id/editQuantidadeDesejada"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="0"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeDisponivelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantidade disponível:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeDisponivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel" />
-
-    <Button
-        android:id="@+id/btnAdicionarAoCarrinho"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#2C7D8C"
-        android:text="Adicionar ao Carrinho"
-        android:textAllCaps="false"
-        android:textColor="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivel" />
+        android:layout_gravity="bottom"
+        app:labelVisibilityMode="labeled"
+        app:menu="@drawable/bottom_navigation_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

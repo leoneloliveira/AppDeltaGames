@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +27,8 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_produto_detalhes)
 
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome nÃƒÂ£o disponÃƒÂ­vel"
-        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "DescriÃƒÂ§ÃƒÂ£o nÃƒÂ£o disponÃƒÂ­vel"
+        val descricaoProduto =
+            intent.getStringExtra("DESCRICAO_PRODUTO") ?: "DescriÃƒÂ§ÃƒÂ£o nÃƒÂ£o disponÃƒÂ­vel"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
         val imagemProguto = intent.getStringExtra("IMAGEM_URL") ?: "imagem indisponivel"
@@ -42,7 +44,7 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
 
         val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
-        val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
+        val btnAdicionarCarrinho = findViewById<ImageView>(R.id.btnAdicionarAoCarrinho)
 
 
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
@@ -54,6 +56,55 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
         }
+
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    val intent = Intent(this@ProdutoDetalhesActivity, MainActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_orders -> {
+                    val intent = Intent(this@ProdutoDetalhesActivity, OrdersActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.btnCarrinho -> {
+                    val intent = Intent(this@ProdutoDetalhesActivity, CartActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this@ProdutoDetalhesActivity, ProfileActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_logout -> {
+                    val intent = Intent(this@ProdutoDetalhesActivity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+
+
+
+
     }
 
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {

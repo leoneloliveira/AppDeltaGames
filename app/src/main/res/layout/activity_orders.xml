@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fundo"
-    tools:context=".MainActivity">
+    tools:context=".OrdersActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutPrincipal"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="16dp"
@@ -19,35 +18,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <LinearLayout
-            android:id="@+id/searchLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:background="@drawable/bordapesquisa"
-                android:queryHint="Pesquisar" />
-
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewProdutos"
+            android:id="@+id/recyclerViewOrders"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchLayout"/>
-
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,5 +40,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

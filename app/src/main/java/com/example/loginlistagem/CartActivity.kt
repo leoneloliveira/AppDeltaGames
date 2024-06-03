@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +48,47 @@ class CartActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    val intent = Intent(this@CartActivity, MainActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_orders -> {
+                    val intent = Intent(this@CartActivity, OrdersActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+                R.id.btnCarrinho -> {
+
+                    true
+                }
+                R.id.nav_profile -> {
+                    val intent = Intent(this@CartActivity, ProfileActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_logout -> {
+                    val intent = Intent(this@CartActivity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // Marca o item nav_orders como selecionado
+        bottomNavigationView.selectedItemId = R.id.btnCarrinho
     }
+
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
@@ -63,7 +104,8 @@ class CartActivity : AppCompatActivity() {
         api.getCartItems(userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
-                    items = response.body()?.toMutableList() ?: mutableListOf()
+                    // Filtra os itens com quantidadeDisponivel >= 1
+                    items = response.body()?.filter { it.quantidadeDisponivel >= 1 }?.toMutableList() ?: mutableListOf()
                     setupAdapter()
                     updateTotal()
                 }

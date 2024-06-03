@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvCadastrar.setOnClickListener {
-            val intent = Intent(this, CadastroUsuarioActivity::class.java)
+            val intent = Intent(this, UserRegistrationActivity::class.java)
             startActivity(intent)
         }
     }
@@ -45,6 +45,26 @@ class LoginActivity : AppCompatActivity() {
     private fun blockLogin() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
+
+        // Verifica se os campos de e-mail e senha estão vazios
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(
+                this@LoginActivity,
+                "Por favor, preencha todos os campos",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        // Verifica se o email contém "@" e "."
+        if (!isValidEmail(email)) {
+            Toast.makeText(
+                this@LoginActivity,
+                "Email inválido. Certifique-se de que contém '@' e '.'.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://298e89b0-8404-4ed8-854a-b22f6daeba1d-00-1lblx47u5zguf.picard.replit.dev/")
@@ -94,6 +114,10 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return email.contains("@") && email.contains(".")
     }
 
     interface ApiService {

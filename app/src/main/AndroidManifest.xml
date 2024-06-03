@@ -29,7 +29,20 @@
 
 
         <activity
-            android:name=".CadastroUsuarioActivity"/>
+            android:name=".UserRegistrationActivity"/>
+
+        <activity
+            android:name=".AddressRegistrationActivity"/>
+
+        <activity
+            android:name=".OrdersActivity" />
+
+        <activity
+            android:name=".OrderDetailsActivity"/>
+
+
+        <activity
+            android:name=".ProfileActivity" />
 
 
         <activity

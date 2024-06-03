@@ -22,6 +22,7 @@ class CartAdapter(
     private val updateTotal: () -> Unit
 ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
+    
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName: TextView = view.findViewById(R.id.productNameTextView)
         val productPrice: TextView = view.findViewById(R.id.productPriceTextView)
@@ -60,6 +61,7 @@ class CartAdapter(
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     items.removeAt(position)
+
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, items.size)
                     updateTotal()  // Chamada da funÃƒÂ§ÃƒÂ£o para atualizar o total

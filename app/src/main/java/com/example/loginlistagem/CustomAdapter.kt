@@ -9,12 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CustomAdapter(private val dataSet: List<Produto>) :
+class CustomAdapter(private val dataSet: List<Produto>)
+    :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
-        val descricao: TextView = view.findViewById(R.id.descricaoProduto)
+
         val valor: TextView = view.findViewById(R.id.valorProduto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
     }
@@ -30,7 +31,7 @@ class CustomAdapter(private val dataSet: List<Produto>) :
         val produto = dataSet[position]
 
         viewHolder.nome.text = produto.produtoNome
-        viewHolder.descricao.text = produto.produtoDesc
+
         // Formatação explícita do valor com símbolo de moeda
         val formattedPrice = "R$ %.2f".format(produto.produtoPreco)
         viewHolder.valor.text = formattedPrice

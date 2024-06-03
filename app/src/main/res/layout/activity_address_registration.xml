@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="236dp"
+        android:layout_height="238dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/logo1" />
+
+    <LinearLayout
+        android:layout_width="327dp"
+        android:layout_height="539dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/bordadefundo"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <EditText
+            android:id="@+id/etAddressName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome do Endereço" />
+
+        <EditText
+            android:id="@+id/etAddressStreet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Logradouro" />
+
+        <EditText
+            android:id="@+id/etAddressNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número" />
+
+        <EditText
+            android:id="@+id/etAddressComplement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Complemento" />
+
+        <EditText
+            android:id="@+id/etAddressCEP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CEP"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etAddressCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cidade" />
+
+        <EditText
+            android:id="@+id/etAddressState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Estado" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFCE3FF"
+            android:textSize="18sp"
+            android:textColor="#FF976DD0"
+            android:text="Cadastrar" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

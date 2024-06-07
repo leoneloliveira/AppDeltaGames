@@ -48,6 +48,11 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+
+            <meta-data
+                android:name="com.stripe.android.API_KEY"
+                android:value="pk_test_51PO9ytILCvgEV4ufYNymOr85r5TlcQH3KtQh3OwfbUqrWvb8yabov8L75a4kg5PL3qC7wwqXzy61ufTCM6SiT3Vf00DJeuZZOK" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

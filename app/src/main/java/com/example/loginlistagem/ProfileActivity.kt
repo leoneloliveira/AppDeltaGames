@@ -5,9 +5,10 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.json.JSONArray
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -41,10 +42,11 @@ class ProfileActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_profile -> {
-
                     true
                 }
                 R.id.nav_logout -> {
+                    val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().clear().apply()
                     val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
@@ -55,7 +57,7 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        // Marca o item nav_orders como selecionado
+        // Marca o item nav_profile como selecionado
         bottomNavigationView.selectedItemId = R.id.nav_profile
     }
 
@@ -63,9 +65,9 @@ class ProfileActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: Void?): String {
             // Obtém o ID do usuário, substitua isso pelo método correto para obter o ID do usuário logado
             val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
-            val userId = sharedPreferences.getInt("userId", -1).toString()
+            val userId = sharedPreferences.getInt("userId", 0).toString()
 
-            val url = URL("https://92d17040-ccf9-4427-b64f-38f6aa944f00-00-q6dqsgksbx5h.janeway.replit.dev/?user_id=$userId")
+            val url = URL("https://92d17040-ccf9-4427-b64f-38f6aa944f00-00-q6dqsgksbx5h.janeway.replit.dev/?userId=$userId")
             val connection = url.openConnection() as HttpURLConnection
             val response = StringBuilder()
 
@@ -88,11 +90,13 @@ class ProfileActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             if (!result.isNullOrEmpty()) {
-                val userDataArray = JSONArray(result)
-                if (userDataArray.length() > 0) {
-                    val userData = userDataArray.getJSONObject(0)
-                    val userName = userData.getString("USUARIO_NOME")
-                    val userEmail = userData.getString("USUARIO_EMAIL")
+                val jsonResponse = JSONObject(result)
+                if (jsonResponse.has("error")) {
+                    // Tratar erro
+                    Toast.makeText(this@ProfileActivity, jsonResponse.getString("error"), Toast.LENGTH_LONG).show()
+                } else {
+                    val userName = jsonResponse.getString("USUARIO_NOME")
+                    val userEmail = jsonResponse.getString("USUARIO_EMAIL")
 
                     // Atualizar TextViews com os dados do usuário
                     findViewById<TextView>(R.id.userName).text = userName
